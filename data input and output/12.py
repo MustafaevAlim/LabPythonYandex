@@ -1,0 +1,6 @@
+n = int(input())
+m = int(input())
+units = str(((n % 10) + (m % 10)) % 10)
+dozens = str((((n // 10) % 10) + ((m // 10) % 10)) % 10)
+hundreds = str(((n // 100) + (m // 100)) % 10)
+print(hundreds + dozens + units)

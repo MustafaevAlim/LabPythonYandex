@@ -1,15 +1,34 @@
-coor = [0,0]
+alphabet = ' 0123456789' # Рабочий алфавит
 
-while (direction := input()) != 'СТОП':
-    if direction == 'СЕВЕР':
-        coor[0] += int(input())
-    elif direction == 'ЮГ':
-        coor[0] -= int(input())
-    elif direction == 'ВОСТОК':
-        coor[1] += int(input())
-    else:
-        coor[1] -= int(input())
+print('00, ,<,01')
+state_counter = 1
+for i in alphabet[1:]:
+    print(f'{state_counter},{i},<,{state_counter}')
+print(f'{state_counter}, ,>,{state_counter}')
+state_counter += 1
+copy_state = state_counter
+shift_state = state_counter + 1
+state_counter += 2
 
+for i in alphabet[1:]:
+    print(f'{copy_state},{i}, ,{state_counter}')
+    print(f'{state_counter},{i}, ,{state_counter + 1}')
+    state_counter += 1
+    for j in alphabet[1:]:
+        print(f'{state_counter}, {i},>,{state_counter}')
+    print(f'{state_counter}, ,{i},{state_counter + 1}')
+    state_counter += 1
+    for j in alphabet[1:]:
+        print(f'{state_counter}, {i},<,{state_counter}')
+    print(f'{state_counter}, , ,{state_counter + 1}')
+    state_counter += 1
+    for j in alphabet[1:]:
+        print(f'{state_counter}, {i},<,{state_counter}')
+    print(f'{state_counter}, ,{i},{state_counter + 1}')
 
-else:
-    print(coor)
+state_counter += 1
+print(f'{copy_state},{i},>,{state_counter}')
+
+for i in alphabet[1:]:
+    print(f'{shift_state},{i},>,{copy_state}')
+

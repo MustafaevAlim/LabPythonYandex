@@ -1,0 +1,1 @@
+{i: text.replace(' ', '').lower().count(i) for i in ''.join(sorted(text.replace(' ', '').lower())) if i not in ',!?/.\n'}

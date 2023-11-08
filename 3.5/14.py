@@ -1,36 +1,35 @@
 import json
 
-with open(name_file := input(), encoding='utf-8') as f:
-    old_data = json.load(f)
 
-with open(input(), encoding='utf-8') as f:
-    new_data = json.load(f)
+n1, n2 = [input() for _ in range(2)]
 
+with open(n1, mode='r', encoding='utf-8') as f:
+    data1 = json.load(f)
 
-updates_data = []
-for i in range(len(old_data)):
-    updates_data.append({})
-    for j in old_data[i]:
-        if j not in updates_data[i]:
-            updates_data[i][j] = old_data[i][j]
-    for x in new_data[i]:
-        if x not in updates_data[i]:
-            updates_data[i][x] = new_data[i][x]
-        elif new_data[i][x] > updates_data[i][x]:
-            updates_data[i][x] = new_data[i][x]
+with open(n2, mode='r', encoding='utf-8') as f:
+    data2 = json.load(f)
 
+data3 = {}
 
-
-
-users_data = {}
-for data in updates_data:
-    for j in data:
-        if j == 'name':
-            users_data[data[j]] = {}
-            name = data[j]
+for i in range(len(data1)):
+    name = list(data1[i].items())[0][1]
+    for k, v in data1[i].items():
+        if k == "name":
+            data3[name] = {}
         else:
-            if j not in users_data[name]:
-                users_data[name][j] = data[j]
+            data3[name][k] = v
 
-with open(name_file, 'w', encoding='utf-8') as file_out:
-    json.dump(users_data, file_out, ensure_ascii=False, indent=4)
+for i in range(len(data2)):
+    name = list(data2[i].items())[0][1]
+    for k, v in data2[i].items():
+        if k == "name":
+            continue
+        elif k in data3[name]:
+            if data3[name][k] < v:
+                data3[name][k] = v
+        else:
+            data3[name][k] = v
+
+
+with open(n1, mode='w', encoding='utf-8') as f:
+    json.dump(data3, f, ensure_ascii=False, indent=4)

@@ -7,14 +7,17 @@ while True:
         break
     s = s.split()
     for i in s:
-        length = len(i)
-        if length not in d:
-            d[length] = [i.upper()]
+        if len(i) % 2 == 0:
+            j = i[(len(i) // 2) - 1].lower()
         else:
-            d[length].append(i.upper())
+            j = i[(len(i) // 2)].lower()
+        if j not in d:
+            d[j] = [i.upper()]
+        else:
+            d[j].append(i.upper())
 
 for i in d:
-    s = str(i) + ': '
-    for j in sorted(list(set(d[i])), reverse=True):
-        s += j + '; '
-    print(s[:-2])
+    s = str(i) + ' "'
+    for j in sorted(list(set(d[i]))):
+        s += j + '. '
+    print(f'{s[:-2]}"')
